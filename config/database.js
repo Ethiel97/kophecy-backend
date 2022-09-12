@@ -8,7 +8,7 @@ module.exports = ({ env }) => ({
       database: env('DB_NAME', 'kophecy'),
       user: env('DB_USERNAME', 'root'),
       password: env('DB_PASSWORD', ''),
-      ssl: env.bool('DB_SSL', false),
+      ssl: env.bool('DB_SSL', true),
       options: '--cluster=gray-newfie-3295',
       // cluster: 'brave-entity-2863'
     },
