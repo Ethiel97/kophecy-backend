@@ -58,7 +58,7 @@ module.exports = createCoreController('api::saved-quote.saved-quote', ({strapi})
     const uidToDelete = `${uid}:${id}:${username}}`
 
     const entity = await strapi.db.query('api::saved-quote.saved-quote').delete({
-      where: {uid: uidToDelete, user_id: id}
+      where: {uid: uidToDelete}
     });
 
     return {
