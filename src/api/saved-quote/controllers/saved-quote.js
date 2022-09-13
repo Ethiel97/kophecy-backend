@@ -13,7 +13,7 @@ module.exports = createCoreController('api::saved-quote.saved-quote', ({strapi})
     const entry = await strapi.db.query('api::saved-quote.saved-quote').create({
       data: {
         uid: `${ctx.request.body.data.uid}:${id}:${username}`,
-        id
+        user_id: id
       }
     });
 
