@@ -62,12 +62,6 @@
       "target": "plugin::users-permissions.role",
       "inversedBy": "users",
       "configurable": false
-    },
-    "saved_quotes": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::saved-quote.saved-quote",
-      "mappedBy": "user_id"
     }
   }
 }

@@ -13,7 +13,6 @@ module.exports = createCoreController('api::saved-quote.saved-quote', ({strapi})
     const entry = await strapi.db.query('api::saved-quote.saved-quote').create({
       data: {
         uid: `${ctx.request.body.data.uid}:${id}:${username}`,
-        user_id: id
       }
     });
 
@@ -27,7 +26,9 @@ module.exports = createCoreController('api::saved-quote.saved-quote', ({strapi})
     const {id} = ctx.state.user;
     const quotes = await strapi.db.query('api::saved-quote.saved-quote').findMany({
       where: {
-        user_id: id,
+        uid: {
+          $containsi: id,
+        },
       },
     })
 
@@ -40,7 +41,7 @@ module.exports = createCoreController('api::saved-quote.saved-quote', ({strapi})
     const {uid} = ctx.request.params
     const {id, username} = ctx.state.user;
 
-    const uidToFind = `${uid}:${id}:${username}}`
+    const uidToFind = `${uid}:${id}:${username}`
     const entity = await strapi.db.query('api::saved-quote.saved-quote').findOne({
       where: {
         uid: uidToFind,
@@ -54,8 +55,15 @@ module.exports = createCoreController('api::saved-quote.saved-quote', ({strapi})
   deleteByUid: async (ctx, next) => {
     const {uid} = ctx.request.params
     const {id, username} = ctx.state.user;
+    const uidToDelete = `${uid}:${id}:${username}`
 
-    const uidToDelete = `${uid}:${id}:${username}}`
+    const found = await strapi.db.query('api::saved-quote.saved-quote').findOne({
+      where: {
+        uid: uidToDelete,
+      }
+    });
+
+    console.log('FOUND ENTITY', found)
 
     const entity = await strapi.db.query('api::saved-quote.saved-quote').delete({
       where: {uid: uidToDelete}
@@ -69,9 +77,11 @@ module.exports = createCoreController('api::saved-quote.saved-quote', ({strapi})
   deleteAll: async (ctx, next) => {
     const {id} = ctx.state.user
 
+    console.log("USER", ctx.state.user)
+
     const entity = await strapi.db.query('api::saved-quote.saved-quote').deleteMany({
-      where: {
-        user_id: id
+      uid: {
+        $containsi: id,
       },
     });
 

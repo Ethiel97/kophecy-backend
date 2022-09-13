@@ -4,7 +4,8 @@
   "info": {
     "singularName": "saved-quote",
     "pluralName": "saved-quotes",
-    "displayName": "SavedQuote"
+    "displayName": "SavedQuote",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -13,12 +14,6 @@
   "attributes": {
     "uid": {
       "type": "uid"
-    },
-    "user_id": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "saved_quotes"
     }
   }
 }
